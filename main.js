@@ -135,7 +135,7 @@ class ServiceNowAdapter extends EventEmitter {
                 */
                 this.emitOnline();
                 log.debug(this.id);
-                log.debug(" Health Check Passed");
+                log.debug("Health Check Passed");
                 if (callback) {
                     callback(result, error)
                 }
