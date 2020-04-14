@@ -196,26 +196,7 @@ class ServiceNowAdapter extends EventEmitter {
          * Note how the object was instantiated in the constructor().
          * get() takes a callback function.
          */
-        this.connector.get((results, error) => {
-            if (error) {
-                callback([], error)
-            } else {
-                const rawResultObjects = JSON.parse(results["body"])["result"];
-                let resultObjects = []
-                rawResultObjects.forEach(function(element, i) {
-                    resultObjects.push({
-                        change_ticket_number: element.number,
-                        active: element.active,
-                        priority: element.priority,
-                        description: element.description,
-                        work_start: element.work_start,
-                        work_end: element.work_end,
-                        change_ticket_key: element.sys_id,
-                    })
-                });
-                callback(resultObjects, error)
-            }
-        });
+        this.connector.get(callback);
     }
 
     /**
@@ -234,24 +215,7 @@ class ServiceNowAdapter extends EventEmitter {
          * Note how the object was instantiated in the constructor().
          * post() takes a callback function.
          */
-        this.connector.post((results, error) => {
-            if (error) {
-                callback(null, error)
-            } else {
-                const rawResultObject = JSON.parse(results["body"])["result"];
-                const resultObject = {
-                    change_ticket_number: rawResultObject.number,
-                    active: rawResultObject.active,
-                    priority: rawResultObject.priority,
-                    description: rawResultObject.description,
-                    work_start: rawResultObject.work_start,
-                    work_end: rawResultObject.work_end,
-                    change_ticket_key: rawResultObject.sys_id,
-                }
-                callback(resultObject, error);
-            }
-        }
-        );
+        this.connector.post(callback);
     }
 }
 
